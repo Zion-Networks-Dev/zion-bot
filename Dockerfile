@@ -13,4 +13,4 @@ COPY . .
 
 RUN bunx prisma generate
 
-CMD ['bun', 'run', 'start:production']
+CMD ["bun", "run", "start:production"]
