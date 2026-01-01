@@ -69,7 +69,7 @@ export const onReady = async (Bot: Client) => {
     logger.info('Bot ready');
 
     Bot.user?.setPresence({
-      activities: [{ name: 'Zion Networks', type: 'WATCHING' }],
+      activities: [{ name: 'Zion Networks', type: ActivityType.Watching }],
       status: 'online',
     });
   } catch (error) {
