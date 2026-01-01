@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, PermissionFlagsBits, CommandInteraction, EmbedBuilder, TextChannel, ChannelType } from 'discord.js'
+import { SlashCommandBuilder, PermissionFlagsBits, CommandInteraction, EmbedBuilder, TextChannel, ChannelType, ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 import { Command } from '../../interfaces/command';
 
 const Verify: Command = {
@@ -26,7 +26,14 @@ const Verify: Command = {
             .setTimestamp()
             .setFooter({ text: 'Zion Networks', iconURL: interaction.guild.iconURL() ?? undefined });
 
-        await (channel as TextChannel).send({ embeds: [embed] });
+        const button = new ButtonBuilder()
+            .setCustomId('verify_button')
+            .setLabel('Verify')
+            .setStyle(ButtonStyle.Primary);
+
+        const row = new ActionRowBuilder<ButtonBuilder>().addComponents(button);
+
+        await (channel as TextChannel).send({ embeds: [embed], components: [row] });
 
         await interaction.reply({ content: `Verification modal sent in ${channel}`, ephemeral: true });
     }

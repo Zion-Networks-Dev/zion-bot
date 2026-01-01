@@ -8,6 +8,7 @@ const envVars = {
   DISCORD_TOKEN: process.env.TOKEN,
   ACTION_LOG_CHANNEL: process.env.ACTION_LOG_CHANNEL,
   MESSAGE_LOG_CHANNEL: process.env.MESSAGE_LOG_CHANNEL,
+  VERIFIED_ROLE: process.env.VERIFIED_ROLE,
   NODE_ENV: process.env.NODE_ENV || 'development',
 };
 
@@ -25,6 +26,7 @@ interface Env {
   GUILD_ID: string;
   ACTION_LOG_CHANNEL: string;
   MESSAGE_LOG_CHANNEL: string;
+  VERIFIED_ROLE: string;
   NODE_ENV: string;
 }
 
@@ -34,6 +36,7 @@ const Config: Env = {
   DISCORD_TOKEN: envVars.DISCORD_TOKEN!,
   ACTION_LOG_CHANNEL: envVars.ACTION_LOG_CHANNEL!,
   MESSAGE_LOG_CHANNEL: envVars.MESSAGE_LOG_CHANNEL!,
+  VERIFIED_ROLE: envVars.VERIFIED_ROLE!,
   NODE_ENV: envVars.NODE_ENV,
 };
 
