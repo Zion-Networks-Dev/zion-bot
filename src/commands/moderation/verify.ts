@@ -24,7 +24,7 @@ const Verify: Command = {
             .setDescription('Click the button below to verify yourself and change your name')
             .setColor('#8c5bfa')
             .setTimestamp()
-            .setFooter({ text: 'Zion Networks', iconURL: interaction.guild.iconURL() ?? undefined });
+            .setFooter({ text: interaction.guild.name, iconURL: interaction.guild.iconURL() ?? undefined });
 
         const button = new ButtonBuilder()
             .setCustomId('verify_button')
