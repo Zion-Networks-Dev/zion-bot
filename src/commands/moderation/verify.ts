@@ -36,6 +36,7 @@ const Verify: Command = {
         await (channel as TextChannel).send({ embeds: [embed], components: [row] });
 
         await interaction.reply({ content: `Verification modal sent in ${channel}`, ephemeral: true });
+        return;
     }
 }
 

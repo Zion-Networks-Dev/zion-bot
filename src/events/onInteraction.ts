@@ -58,11 +58,14 @@ export const onInteraction = async (interaction: Interaction) => {
           content: `You have been given access to the discord, welcome ${firstName}!`,
           flags: MessageFlags.Ephemeral
         })
+        return;
       } catch(error) {
-        await interaction.reply({
-          content: 'There was an error setting your nickname. Please contact a developer or staff member',
-          flags: MessageFlags.Ephemeral
-        })
+        if (!interaction.replied) {
+          await interaction.reply({
+            content: 'There was an error setting your nickname. Please contact a developer or staff member',
+            flags: MessageFlags.Ephemeral
+          })
+        }
       }
     }
     return;
