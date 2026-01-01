@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, PermissionFlagsBits, CommandInteraction, EmbedBuilder, TextChannel } from 'discord.js'
+import { SlashCommandBuilder, PermissionFlagsBits, CommandInteraction, EmbedBuilder, TextChannel, ChannelType } from 'discord.js'
 import { Command } from '../../interfaces/command';
 
 const Verify: Command = {
@@ -7,24 +7,28 @@ const Verify: Command = {
         .setDescription('Sends the verification modal to a chosen channel')
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addChannelOption(option => 
-            option.setName('channel').setDescription('The channel to send the modal in').setRequired(true)
-            
+            option.setName('channel')
+                  .setDescription('The channel to send the modal in')
+                  .setRequired(true)
         ),
 
     async run(interaction: CommandInteraction) {
-        const channel = interaction.options.getChannel('channel');
-        if (!interaction.guild || !channel?.isTextBased()) return;
+        const channelOption = interaction.options.get('channel');
+        if (!channelOption || !interaction.guild) return;
+
+        const channel = channelOption.channel;
+        if (!channel || channel.type !== ChannelType.GuildText) return;
 
         const embed = new EmbedBuilder()
             .setTitle('Verify Yourself')
             .setDescription('Click the button below to verify yourself and change your name')
             .setColor('#8c5bfa')
             .setTimestamp()
-            .setFooter({ text: 'Zion Networks', iconURL: interaction.guild.iconURL()});
+            .setFooter({ text: 'Zion Networks', iconURL: interaction.guild.iconURL() ?? undefined });
 
         await (channel as TextChannel).send({ embeds: [embed] });
 
-        await interaction.reply({content: `Verification model sent in channel: ${channel}`, ephemeral: true})
+        await interaction.reply({ content: `Verification modal sent in ${channel}`, ephemeral: true });
     }
 }
 
