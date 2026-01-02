@@ -49,10 +49,7 @@ const ReactRole: Command = {
 
         if ((currentRow.components as any).length > 0) rows.push(currentRow);
 
-        const target = channel as any;
-        await target.send({ embeds: [embed], components: rows });
-
-        await interaction.reply({ content: 'Reaction role message sent.', ephemeral: true });
+        await channel.send({ embeds: [embed], components: rows });
     }
 }
 
