@@ -2,10 +2,34 @@ import { Interaction, MessageFlags, TextChannel, ModalBuilder, TextInputBuilder,
 import commands from '../handlers/commandHandler';
 import Config from '../config';
 import logger from '../utils/logger';
+import { ReactionRoles } from '../constants';
 
 export const onInteraction = async (interaction: Interaction) => {
   // Buttons
   if (interaction.isButton()) {
+    if (interaction.customId.startsWith('reactrole_')) {
+      const roleId = interaction.customId.replace('reactrole_', '');
+      const rr = ReactionRoles.find((r) => r.roleId === roleId)
+
+      if (!rr) return;
+
+      const member = interaction.member as GuildMember;
+      if (member.roles.cache.has(roleId)) {
+        await member.roles.remove(roleId);
+        await interaction.reply({ content: `You have removed the **${rr.label}** role.`, ephemeral: true });
+        return;
+      }
+
+      try {
+        await member.roles.add(roleId);
+        await interaction.reply({ content: `You have been given the **${rr.label}** role.`, ephemeral: true });
+        return;
+      } catch (error) {
+        interaction.reply({ content: 'There was an error assigning you the role. Please contact a staff member.', ephemeral: true });
+        return;
+      }
+    };
+
     if (interaction.customId === 'verify_button') {
       const modal = new ModalBuilder()
         .setCustomId('verify_modal')
