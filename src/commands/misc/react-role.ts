@@ -49,7 +49,8 @@ const ReactRole: Command = {
 
         if ((currentRow.components as any).length > 0) rows.push(currentRow);
 
-        await channel.send({ embeds: [embed], components: rows });
+        const target = channel as any;
+        await target.send({ embeds: [embed], components: rows });
     }
 }
 
