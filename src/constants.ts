@@ -45,4 +45,9 @@ export const Channels: Record<string, string> = {
   Support: '1367122035154751539',
 };
 
+export const ReactionRoles: { label: string; roleId: string }[] = [
+  { label: 'Changelogs', roleId: '1173729803891900416' },
+  { label: 'Teasers', roleId: '1390278151388663918' }
+]
+
 export const SolvedTag = '1368624103552057495';
