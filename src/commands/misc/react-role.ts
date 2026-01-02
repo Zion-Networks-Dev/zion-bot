@@ -55,3 +55,5 @@ const ReactRole: Command = {
         await interaction.reply({ content: 'Reaction role message sent.', ephemeral: true });
     }
 }
+
+export default ReactRole;
