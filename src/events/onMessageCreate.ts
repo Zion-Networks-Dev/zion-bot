@@ -42,27 +42,6 @@ export const onMessageCreate = async (message: Message) => {
   if (userData.sentLogMessage && now - userData.lastResponseTime < userCooldownPeriod) {
     return;
   }
-
-  const isResourceMatch = resourcePatterns.some((pattern) => pattern.test(lowerCaseMessage));
-  const isPositiveMatch = positivePatterns.some((pattern) => pattern.test(lowerCaseMessage));
-
-  if (isResourceMatch || isPositiveMatch) {
-    if (userData.messageCount < 2) {
-      const channelName = channelIdNames[message.channelId] || 'General';
-      const responseArray = isResourceMatch ? resourceResponses : guidelineResponses[channelName];
-      const randomResponse = responseArray[Math.floor(Math.random() * responseArray.length)];
-      await message.reply(randomResponse);
-      lastGlobalResponseTime = now;
-      userData.messageCount++;
-    } else {
-      const randomCooldownResponse = cooldownResponses[Math.floor(Math.random() * cooldownResponses.length)];
-      await message.reply(randomCooldownResponse);
-      userData.lastResponseTime = now;
-      userData.messageCount = 0;
-      userData.sentLogMessage = true;
-      sendCooldownLog(message, userData.lastResponseTime);
-    }
-  }
 };
 
 async function sendCooldownLog(message: Message, lastResponseTime: number) {
